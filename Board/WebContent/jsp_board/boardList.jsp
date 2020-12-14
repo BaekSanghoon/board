@@ -35,7 +35,7 @@
 		connection = DriverManager.getConnection(dbUrl, dbUser, dbPw);
 		
 		//board테이블의 전체행의 수를 세어서 반환
-		String totalSql = "select count(board_no, board_pw, board_title, board_content, board_user, board_date) from board";
+		String totalSql = "select count(*) from board";
 		totalStatement = connection.prepareStatement(totalSql);
 		totalResultSet = totalStatement.executeQuery();
 		if(totalResultSet.next()) {
