@@ -28,16 +28,11 @@
 			resultSet = statement.executeQuery();
 			if(resultSet.next()) {
 %>
-				<div>board_no :</div>
-				<div><%=boardNo%></div>
-				<div>board_title :</div>
-				<div><%=resultSet.getString("board_title")%></div>
-				<div>board_content :</div>
-				<div><%=resultSet.getString("board_content")%></div>
-				<div>board_user :</div>
-				<div><%=resultSet.getString("board_user")%></div>
-				<div>board_date :</div>
-				<div><%=resultSet.getString("board_date")%></div>
+				<div>board_no : <%=boardNo%></div>
+				<div>board_title : <%=resultSet.getString("board_title")%></div>
+				<div>board_content :</div> <div><%=resultSet.getString("board_content")%></div>
+				<div>board_user : <%=resultSet.getString("board_user")%></div>
+				<div>board_date : <%=resultSet.getString("board_date")%></div>
 				<div>
 					<a href="<%=request.getContextPath()%>/jsp_board/boardModifyForm.jsp?boardNo=<%=boardNo%>">수정</a>
 					<a href="<%=request.getContextPath()%>/jsp_board/boardRemoveForm.jsp?boardNo=<%=boardNo%>">삭제</a>
