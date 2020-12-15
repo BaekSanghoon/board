@@ -134,5 +134,27 @@ public class BoardDao {
         }   
         return board;
     }
+    
+    //게시물 비밀번호 확인 및 삭제
+    public int deleteBoard(int boardNo, String boardPw) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        int row = 0;
+        try {
+            connection = this.getConnection();
+            String sql = "delete from board where board_no=? and board_pw=?";
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, boardNo);
+            statement.setString(2, boardPw);
+            row = statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.print("오류 발생!");
+        } finally {
+            try {statement.close();} catch(Exception e){}
+            try {connection.close();} catch(Exception e){}
+        } 
+        return row;
+    }
 	
 }
