@@ -38,8 +38,8 @@
 </head>
 <body>
 	<div class="container">
-		<h1>게시판 글입력(모델1)</h1>		
-		<form action="<%=request.getContextPath()%>/model1_board/boardAddAction.jsp" method="post">
+		<h1>게시판 글입력(모델2)</h1>		
+		<form action="<%=request.getContextPath()%>/model2_board/boardAddServlet.do" method="post">
 		<div class="table-active" > 게시글 작성자 이름 </div>
 		<div class="table-active"><input name="boardUser" id="boardUser" type="text"/></div>
 		<div class="table-light">게시글 암호</div>
@@ -51,7 +51,7 @@
 		<div class="table-active">
             <input class="btn btn-outline-success"  type="submit" id="addButton" value="글입력"/>
             <input class="btn btn-outline-warning" type="reset" value="초기화"/>
-            <a class="btn btn-outline-primary" href="<%=request.getContextPath()%>/model1_board/boardList.jsp">글목록</a>
+            <a class="btn btn-outline-primary" href="<%=request.getContextPath()%>/model2_board/boardListServlet.do">글목록</a>
         </div>
 
 		</form>

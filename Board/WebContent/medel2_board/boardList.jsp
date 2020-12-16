@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
-<%@ page import="model.Board" %>
-<%@ page import="model.BoardDao" %>
+<%@ page import="model2.Board" %>
+<%@ page import="model2.BoardDao" %>
 <%@ page import="java.util.*" %>
 <!DOCTYPE html>
 <html>
@@ -17,24 +17,10 @@
 </head>
 <body>
   <div class="alert alert-dark">
-    <h1>게시글 목록(모델1)</h1>
+    <h1>게시글 목록(모델2)</h1>
   </div>
-<%	
-	//페이징 
-	int currentPage = 1;
-	if(request.getParameter("currentPage") != null) { //넘어오는 값이 null이면 1를 대입한다.
-		currentPage = Integer.parseInt(request.getParameter("currentPage"));
-	}
-	//System.out.println("currentPage"+currentPage);
-	    BoardDao boardDao = new BoardDao();
-    // 전체 게시글의 수를 구하는 코드
-    int totalRowCount = boardDao.getBoardCount();
-	
-%>
-	<div>전체행의 수 : <%=totalRowCount%></div>
-<%
 
-%>
+	<div>전체행의 수 : <%=request.getAttribute("totalRowCount")%></div>
 	<table class="table table-dark table-hover">
 		<thead>
 			<tr>
@@ -45,12 +31,11 @@
 		</thead>
 		<tbody>
 <%
-		int pagePerRow = 10; // 페이지당 보여줄 글의 목록을 10개로 설정
-		ArrayList<Board> list = boardDao.getBoardList(currentPage, pagePerRow);
+		ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list");
 		for(Board b : list) {
 %>
             <tr>
-                <td><a href="<%=request.getContextPath()%>/model1_board/boardView.jsp?boardNo=<%=b.getBoardNo()%>"><%=b.getBoardTitle()%></a></td>
+                <td><a href="<%=request.getContextPath()%>/model2_board/boardViewServlet.do?boardNo=<%=b.getBoardNo()%>"><%=b.getBoardTitle()%></a></td>
                 <td><%=b.getBoardUser()%></td>
                 <td><%=b.getBoardDate()%></td>
             </tr>
@@ -60,26 +45,23 @@
 		</tbody>
 	</table>
 	<div>
-		<a type="button" class="btn btn-outline-secondary" href="<%=request.getContextPath()%>/model1_board/boardAddForm.jsp">게시글 입력</a>		
+		<a type="button" class="btn btn-outline-secondary" href="<%=request.getContextPath()%>/model2_board/boardAddForm.jsp">게시글 입력</a>		
 	</div>
 <%
-	//lastPage는 전체 게시글의 수와 페이지당 보여줄 게시글을 지정한 숫자를 나누어서 0으로 떨어지지 않으면 lastPage를 1더한다.
-	int lastPage = totalRowCount/pagePerRow;
-	if(totalRowCount % pagePerRow != 0) {
-		lastPage++;
-	}	
+	int currentPage = (Integer)request.getAttribute("currentPage");
+	int lastPage = (Integer)request.getAttribute("lastPage");
 
 %>
 	<div>
 <%
 		if(currentPage>1) { // 현재 페이지가 1페이지보다 크면 이전페이지 링크를 추가
 %>
-			<a type="button" class="btn btn-outline-info" href="<%=request.getContextPath()%>/model1_board/boardList.jsp?currentPage=<%=currentPage-1%>">이전</a>
+			<a type="button" class="btn btn-outline-info" href="<%=request.getContextPath()%>/model2_board/boardListServlet.do?currentPage=<%=currentPage-1%>">이전</a>
 <%
 		}
 		if(currentPage < lastPage) { // 현재 페이지가 마지막 페이지보다 작으면 다음페이지 링크를 추가
 %>
-			<a type="button" class="btn btn-outline-info" href="<%=request.getContextPath()%>/model1_board/boardList.jsp?currentPage=<%=currentPage+1%>">다음</a>
+			<a type="button" class="btn btn-outline-info" href="<%=request.getContextPath()%>/model2_board/boardListServlet.do?currentPage=<%=currentPage+1%>">다음</a>
 <%
 		}
 %>
