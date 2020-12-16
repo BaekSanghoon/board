@@ -39,5 +39,6 @@
 		 </table>	
 		 	<a type="button" class="btn btn-outline-info" href="<%=request.getContextPath()%>/model1_board/boardModifyForm.jsp?boardNo=<%=boardNo%>">수정</a>
 		 	<a type="button" class="btn btn-outline-danger" href="<%=request.getContextPath()%>/model1_board/boardRemoveForm.jsp?boardNo=<%=boardNo%>">삭제</a>
+		 	<a class="btn btn-outline-primary" href="<%=request.getContextPath()%>/model1_board/boardList.jsp">글목록</a>
 </body>
 </html>

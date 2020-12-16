@@ -7,17 +7,17 @@ public class BoardDao {
 	// 게시글 쓰기
 	public int insertBoard(Board board) { 
 		//DB연동
-		String dbUrl = "jdbc:mariadb://127.0.0.1:3306/boardd";
-		String dbUser = "root";
-		String dbPw = "java1004";	
+		/*
+		 * String dbUrl = "jdbc:mariadb://127.0.0.1:3306/boardd"; String dbUser =
+		 * "root"; String dbPw = "java1004";
+		 */
 		//Connection DB연결과 관련된 정보를 가지는 데이터 타입
 		Connection connection = null;
 		//PreparedStatement 연결된 DB에 쿼리를 설정하고 실행할때 사용되는 데이터 타입, 객체를 캐시에 담아 재사용 한다.
 		PreparedStatement statement = null;
 		int row = 0;
 		try {
-			Class.forName("org.mariadb.jdbc.Driver");
-			connection = DriverManager.getConnection(dbUrl, dbUser, dbPw);
+			connection = this.getConnection();
 			String sql = "insert into board( board_pw, board_title, board_content, board_user, board_date) values(?,?,?,?,now())";
 			statement = connection.prepareStatement(sql);	
             statement.setString(1,board.getBoardPw());
@@ -37,6 +37,7 @@ public class BoardDao {
 			return row;
 	}
 	
+	//DB연동
     public Connection getConnection() throws Exception {
 		Class.forName("org.mariadb.jdbc.Driver");
 		String dbUrl = "jdbc:mariadb://127.0.0.1:3306/boardd";
@@ -156,5 +157,30 @@ public class BoardDao {
         } 
         return row;
     }
+    
+        // 글수정 메서드 
+    public int updateBoard(Board board) {
+    	Connection connection = null;
+    	PreparedStatement statement = null;
+    	int row = 0;
+    	try {
+    		connection = this.getConnection();
+    		String sql = "update board set board_title=?, board_content=? where board_no=? and board_pw=?";
+    		statement = connection.prepareStatement(sql);
+    		statement.setString(1, board.getBoardTitle());
+    		statement.setString(2, board.getBoardContent());
+    		statement.setInt(3, board.getBoardNo());
+    		statement.setString(4, board.getBoardPw());
+    		row = statement.executeUpdate();
+    		} catch (Exception e) {
+    			e.printStackTrace();
+    			System.out.print("게시글 수정 에러!");
+    		} finally {
+    			try {statement.close();} catch(Exception e){}
+    			try {connection.close();} catch(Exception e){}
+    		} 
+            return row;
+        }
+    
 	
 }
