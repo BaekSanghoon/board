@@ -23,7 +23,7 @@ public class BoardAddServlet extends HttpServlet {
 	String boardUser = request.getParameter("boardUser"); 
 	//System.out.println("boardUser"+boardUser);
 	
-	BoardDao boardDao = new BoardDao();
+
     // boardDao.insertBoard()메서드에 매개변수로 입력할 값을 설정
     Board board = new Board();
     board.setBoardPw(boardPw);
@@ -31,6 +31,7 @@ public class BoardAddServlet extends HttpServlet {
     board.setBoardContent(boardContent);
     board.setBoardUser(boardUser);
     
+ 	BoardDao boardDao = new BoardDao();   
 	int row = boardDao.insertBoard(board);
     
 	response.sendRedirect(request.getContextPath()+"/model1_board/boardList.jsp");

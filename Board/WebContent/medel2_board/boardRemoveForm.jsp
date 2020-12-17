@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,26 +26,24 @@
 </script>
 </head>
 <body>
-<%
+<div class="container">
+    <c:if test="${param.boardNo == null}"> <!-- no값이 없으면 리스트로 이동 -->
+        <c:redirect url="/model2_board/BoardListServlet.do"/>    
+    </c:if>
+    
+    <c:if test="${param.boardNo != null}">		
+		<h1>게시글 삭제 비밀번호 확인(모델2)</h1>
+			<form action="${pageContext.request.contextPath}/model2_board/boardRemoveServlet.do" method="post">
+			
+				<div>게시글 번호 : <input name="boardNo" value="${param.boardNo}" readonly/></div>
+				<div>비밀번호 :  <input name="boardPw" type="password"></div>
+				<div>
+					<input class="btn btn-outline-danger" type="submit" value="삭제"/>
+					<input class="btn btn-outline-warning"type="reset" value="초기화"/>
+				</div>
+			</form>
+	</c:if>
+</div>	
 	
-	if(request.getParameter("boardNo") == null) { // no값이 없으면 리스트로 이동
-		response.sendRedirect(request.getContextPath()+"/model2_board/boardListServlet.do");
-	} else {
-%>
-	<div class="container">
-	<h1>게시글 삭제 비밀번호 확인(모델2)</h1>
-		<form action="<%=request.getContextPath()%>/model2_board/boardRemoveServlet.do" method="post">
-		
-			<div>게시글 번호 : <input name="boardNo" value="<%=request.getParameter("boardNo")%>" readonly/></div>
-			<div>비밀번호 :  <input name="boardPw" type="password"></div>
-			<div>
-				<input class="btn btn-outline-danger" type="submit" value="삭제"/>
-				<input class="btn btn-outline-warning"type="reset" value="초기화"/>
-			</div>
-		</form>
-	</div>	
-<%    
-	}
-%>
 </body>
 </html>

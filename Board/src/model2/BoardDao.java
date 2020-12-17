@@ -3,14 +3,21 @@ package model2;
 import java.sql.*;
 import java.util.*;
 
-public class BoardDao {
+
+public class BoardDao {	
+	//DB연동
+    public Connection getConnection() throws Exception {
+		Class.forName("org.mariadb.jdbc.Driver");
+		String dbUrl = "jdbc:mariadb://127.0.0.1:3306/boardd";
+		String dbUser = "root";
+		String dbPw = "java1004";
+        Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPw);
+        return connection;
+    }
+    
 	// 게시글 쓰기
 	public int insertBoard(Board board) { 
-		//DB연동
-		/*
-		 * String dbUrl = "jdbc:mariadb://127.0.0.1:3306/boardd"; String dbUser =
-		 * "root"; String dbPw = "java1004";
-		 */
+
 		//Connection DB연결과 관련된 정보를 가지는 데이터 타입
 		Connection connection = null;
 		//PreparedStatement 연결된 DB에 쿼리를 설정하고 실행할때 사용되는 데이터 타입, 객체를 캐시에 담아 재사용 한다.
@@ -37,16 +44,7 @@ public class BoardDao {
 			return row;
 	}
 	
-	//DB연동
-    public Connection getConnection() throws Exception {
-		Class.forName("org.mariadb.jdbc.Driver");
-		String dbUrl = "jdbc:mariadb://127.0.0.1:3306/boardd";
-		String dbUser = "root";
-		String dbPw = "java1004";
-        Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPw);
-        return connection;
-    }
-    
+
     // 게시글 목록
     public ArrayList<Board> getBoardList(int currentPage, int pagePerRow) {
         ArrayList<Board> list = new ArrayList<Board>();

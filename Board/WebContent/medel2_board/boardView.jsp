@@ -21,14 +21,14 @@
     Board board = (Board)request.getAttribute("board");
 %>
 		  <table class="table table-dark table-striped">
-				<tr><td>board_no : <%=board.getBoardNo()%></td></tr>
-				<tr><td>board_title : <%=board.getBoardTitle()%></td></tr>
-				<tr><td>board_content :<%=board.getBoardContent()%></td></tr>
-				<tr><td>board_user : <%=board.getBoardUser()%></td></tr>
-				<tr><td>board_date : <%=board.getBoardDate()%></td></tr>
+				<tr><td>board_no : ${board.boardNo}</td></tr>
+				<tr><td>board_title : ${board.boardTitle}</td></tr>
+				<tr><td>board_content :${board.boardContent}</td></tr>
+				<tr><td>board_user : ${board.boardUser}</td></tr>
+				<tr><td>board_date : ${board.boardDate}</td></tr>
 		 </table>	
-		 	<a type="button" class="btn btn-outline-info" href="<%=request.getContextPath()%>/model2_board/boardModifyFormServlet.do?boardNo=<%=board.getBoardNo()%>">수정</a>
-		 	<a type="button" class="btn btn-outline-danger" href="<%=request.getContextPath()%>/model2_board/boardRemoveForm.jsp?boardNo=<%=board.getBoardNo()%>">삭제</a>
-		 	<a class="btn btn-outline-primary" href="<%=request.getContextPath()%>/model2_board/boardListServlet.do">글목록</a>
+		 	<a type="button" class="btn btn-outline-info" href="${pageContext.request.contextPath}/model2_board/boardModifyFormServlet.do?boardNo=<%=board.getBoardNo()%>">수정</a>
+		 	<a type="button" class="btn btn-outline-danger" href="${pageContext.request.contextPath}/model2_board/boardRemoveForm.jsp?boardNo=<%=board.getBoardNo()%>">삭제</a>
+		 	<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/model2_board/boardListServlet.do">글목록</a>
 </body>
 </html>
